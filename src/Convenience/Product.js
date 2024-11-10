@@ -1,4 +1,4 @@
-export default class Item {
+export default class Product {
   #name;
   #price;
   #quantity;
@@ -11,7 +11,7 @@ export default class Item {
     this.#promotionInfo = promotionInfo;
   }
 
-  itemBought(purchasedQuantity) {
+  buyProduct(purchasedQuantity) {
     this.#quantity -= purchasedQuantity;
     if (this.#quantity < 0) {
       this.#quantity = 0;

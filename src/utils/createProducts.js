@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises';
-import  Item from '../Convenience/Item.js';
+import  Product from '../Convenience/Product.js';
 
 export async function createProducts(filepath){
   try{
@@ -8,7 +8,7 @@ export async function createProducts(filepath){
 
     return parsedItemList.map((item) => {
       const [name, price, quantity, promotionInfo] = item;
-      return new Item({name, price, quantity, promotionInfo});
+      return new Product({name, price, quantity, promotionInfo});
     })
 
   }catch(error){
