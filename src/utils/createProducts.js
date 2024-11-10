@@ -17,7 +17,6 @@ export async function createProducts(filepath) {
       addNewProduct(productMap, key, name, price, quantity, promotionInfo);
     }
   });
-
   return Array.from(productMap.values());
 }
 
@@ -27,20 +26,19 @@ function parseItemList(itemList) {
 
 function updateExistingProduct(productMap, key, quantity, promotionInfo) {
   const existingProduct = productMap.get(key);
-
   const { defaultQuantity, promotionQuantity } = calculateQuantities(quantity, promotionInfo);
-  existingProduct.defaultQuantity += defaultQuantity;
-  existingProduct.promotionQuantity += promotionQuantity;
+  existingProduct.addToDefaultQuantity(defaultQuantity);
+  existingProduct.addToPromotionQuantity(promotionQuantity);
 }
 
 function addNewProduct(productMap, key, name, price, quantity, promotionInfo) {
   const { defaultQuantity, promotionQuantity } = calculateQuantities(quantity, promotionInfo);
 
   productMap.set(key, new Product({
-    name,
+    name : name,
     price: Number(price),
-    defaultQuantity,
-    promotionQuantity,
+    defaultQuantity : defaultQuantity,
+    promotionQuantity : promotionQuantity,
     promotionInfo : promotionInfo === 'null' ? null : promotionInfo,
   }));
 }
