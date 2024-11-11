@@ -32,6 +32,5 @@ export default class ProductInventory  {
     const product = this.findProductByName(targetProductName);
     product.removeFromPromotionQuantity(promotionStockUsed);
     product.removeFromDefaultQuantity(defaultStockUsed);
-    console.log("Updated product:", product.getInfo());
   }
 }
