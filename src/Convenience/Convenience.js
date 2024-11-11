@@ -13,8 +13,8 @@ export default class Convenience {
   #outputView;
 
   constructor() {
-    this.#inputView = new InputView();
-    this.#outputView = new OutputView();
+    this.#inputView = new InputView;
+    this.#outputView = new OutputView;
   }
 
   async #initialize() {
@@ -153,13 +153,16 @@ export default class Convenience {
 
     // 구매하려는 제품 수량이 프로모션 제고 이상인 경우
     if (!product.isPromotionStockSufficient(purchaseQuantity)) {
-      const userResponse = await this.#getPurchaseWithoutPromotion(product.getInfo().name, purchaseQuantity - product.getInfo().promotionQuantity);
+      // 프로모션 할인 적용 불가 수량 계산
+      const nonDiscountedQuantity = purchaseQuantity - product.getInfo().promotionQuantity;
 
-      if(userResponse === 'N') return null; //N이라면 이 상품은 사지 않음.
+      const userResponse = await this.#getPurchaseWithoutPromotion(product.getInfo().name, nonDiscountedQuantity);
 
-      purchaseInfo.freeItemCount = promotion.calculateFreeItems(product.getInfo().promotionQuantity); //가능한 수량 내의 증정품 수량
-      purchaseInfo.promotionStockUsed = product.getInfo().promotionQuantity; //프로모션 제고는 모두 사용함
-      purchaseInfo.defaultStockUsed = purchaseQuantity -  purchaseInfo.promotionStockUsed; //나머지는 일반제고를 사용함
+      if(userResponse === 'N') return null; // N이라면 이 상품은 사지 않음.
+
+      purchaseInfo.freeItemCount = promotion.calculateFreeItems(product.getInfo().promotionQuantity); // 가능한 수량 내의 증정품 수량
+      purchaseInfo.promotionStockUsed = product.getInfo().promotionQuantity; // 프로모션 제고는 모두 사용함
+      purchaseInfo.defaultStockUsed = nonDiscountedQuantity; // 나머지는 일반 제고를 사용함
 
       return purchaseInfo;
     }
