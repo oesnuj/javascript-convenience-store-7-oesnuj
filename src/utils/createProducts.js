@@ -1,47 +1,55 @@
 import { readFile } from 'fs/promises';
 import Product from '../Convenience/Product/Product.js';
 
-export async function createProducts(filepath) {
+export default async function createProducts(filepath) {
   const itemList = await readFile(filepath, 'utf-8');
   const parsedItemList = parseItemList(itemList);
-
   const productMap = new Map();
 
   parsedItemList.forEach((item) => {
-    const [name, price, quantity, promotionInfo] = item;
+    const [name, price, quantity, promotionName] = item;
     const key = `${name}-${price}`;
 
     if (productMap.has(key)) {
-      updateExistingProduct(productMap, key, quantity, promotionInfo);
+      updateExistingProduct(productMap, key, quantity, promotionName);
     } else {
-      addNewProduct(productMap, key, name, price, quantity, promotionInfo);
+      addNewProduct(productMap, key, name, price, quantity, promotionName);
     }
   });
+
   return Array.from(productMap.values());
 }
+
+
 
 function parseItemList(itemList) {
   return itemList.trim().split('\n').slice(1).map(item => item.trim().split(','));
 }
 
-function updateExistingProduct(productMap, key, quantity, promotionInfo) {
+
+
+function updateExistingProduct(productMap, key, quantity, promotionName) {
   const existingProduct = productMap.get(key);
-  const { defaultQuantity, promotionQuantity } = calculateQuantities(quantity, promotionInfo);
+  const { defaultQuantity, promotionQuantity } = calculateQuantities(quantity, promotionName);
   existingProduct.addToDefaultQuantity(defaultQuantity);
   existingProduct.addToPromotionQuantity(promotionQuantity);
 }
 
-function addNewProduct(productMap, key, name, price, quantity, promotionInfo) {
-  const { defaultQuantity, promotionQuantity } = calculateQuantities(quantity, promotionInfo);
+
+
+function addNewProduct(productMap, key, name, price, quantity, promotionName) {
+  const { defaultQuantity, promotionQuantity } = calculateQuantities(quantity, promotionName);
 
   productMap.set(key, new Product({
     name : name,
     price: Number(price),
     defaultQuantity : defaultQuantity,
     promotionQuantity : promotionQuantity,
-    promotionInfo : promotionInfo === 'null' ? null : promotionInfo,
+    promotionName : promotionName === 'null' ? null : promotionName,
   }));
 }
+
+
 
 
 function calculateQuantities(quantity, promotionInfo) {
@@ -50,9 +58,7 @@ function calculateQuantities(quantity, promotionInfo) {
 
   if (promotionInfo && promotionInfo !== 'null') {
     promotionQuantity = Number(quantity);
-  }
-
-  if (!promotionInfo || promotionInfo === 'null') {
+  } else {
     defaultQuantity = Number(quantity);
   }
 
