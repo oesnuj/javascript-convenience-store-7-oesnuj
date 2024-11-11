@@ -13,8 +13,8 @@ export default class Convenience {
   #outputView;
 
   constructor() {
-    this.#inputView = new InputView;
-    this.#outputView = new OutputView;
+    this.#inputView = new InputView();
+    this.#outputView = new OutputView();
   }
 
   async #initialize() {
