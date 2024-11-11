@@ -11,12 +11,12 @@ export default class OutputView {
     productList.forEach(({ name, price, defaultQuantity, promotionQuantity, promotionName }) => {
       const formattedPrice = price.toLocaleString();
 
-      if (promotionQuantity > 0) {
+      if (promotionQuantity >= 0) {
         Console.print(`- ${name} ${formattedPrice}원 ${promotionQuantity}개 ${promotionName}`);
       } else if (promotionQuantity === 0 && promotionName) {
         Console.print(`- ${name} ${formattedPrice}원 재고 없음 ${promotionName}`);
       }
-      if (defaultQuantity > 0) {
+      if (defaultQuantity >= 0) {
         Console.print(`- ${name} ${formattedPrice}원 ${defaultQuantity}개`);
       } else if (defaultQuantity === 0) {
         Console.print(`- ${name} ${formattedPrice}원 재고 없음`);
