@@ -23,7 +23,7 @@ export default class Convenience {
   }
 
 
-  async run(){
+  async execute(){
     await this.#initialize();
     while(true){
       this.#outputView.printWelcomeMessage();
