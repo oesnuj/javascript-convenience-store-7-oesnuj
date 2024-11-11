@@ -7,7 +7,7 @@ export const PROMPT_MESSAGES = Object.freeze({
     ADDITIONAL_PURCHASE: '\n감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)\n',
   },
   OUTPUT:{
-    WELCOME:'안녕하세요. W편의점입니다.\n현재 보유하고 있는 상품입니다.\n'
+    WELCOME:'\n안녕하세요. W편의점입니다.\n현재 보유하고 있는 상품입니다.\n'
   }
 
 });
