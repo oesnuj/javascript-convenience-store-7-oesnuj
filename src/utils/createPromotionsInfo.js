@@ -1,8 +1,11 @@
 import { readFile } from 'fs/promises';
 import Promotion from '../Convenience/Promotion/Promotion.js';
+import path from 'path';
 
 
-export default async function createPromotionsInfo(filepath) {
+export default async function createPromotionsInfo() {
+  const filepath = path.join(process.cwd(), 'public/promotions.md');
+
   const promotionList = await readFile(filepath, 'utf-8');
   const parsedPromotionList = parsePromotionList(promotionList);
 

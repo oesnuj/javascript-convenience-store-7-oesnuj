@@ -1,7 +1,9 @@
 import { readFile } from 'fs/promises';
+import path from 'path';
 import Product from '../Convenience/Product/Product.js';
 
-export default async function createProducts(filepath) {
+export default async function createProducts() {
+  const filepath = path.join(process.cwd(), 'public/products.md');
   const itemList = await readFile(filepath, 'utf-8');
   const parsedItemList = parseItemList(itemList);
   const productMap = new Map();

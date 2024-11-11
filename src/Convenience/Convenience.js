@@ -1,6 +1,5 @@
 import createProducts from '../utils/createProducts.js';
 import createPromotionsInfo from '../utils/createPromotionsInfo.js';
-import { convenienceConfig } from '../constants/convenienceConfig.js';
 import ProductInventory from '../Convenience/Product/productInventory.js';
 import InputView from '../io/InputView.js';
 import OutputView from '../io/OutputView.js';
@@ -19,8 +18,8 @@ export default class Convenience {
   }
 
   async #initialize() {
-    this.#productList = new ProductInventory(await createProducts(convenienceConfig.PRODUCT_INFO_PATH));
-    this.#promotionList = await createPromotionsInfo(convenienceConfig.PROMOTION_INFO_PATH);
+    this.#productList = new ProductInventory(await createProducts());
+    this.#promotionList = await createPromotionsInfo();
   }
 
 
