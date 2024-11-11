@@ -1,8 +1,8 @@
 import { Console } from '@woowacourse/mission-utils';
 import { PROMPT_MESSAGES } from '../constants/messages.js';
 
-class InputView {
-  async getProductSelection() {
+export default class InputView {
+  async getProducts() {
     return await Console.readLineAsync(PROMPT_MESSAGES.INPUT.PRODUCT_SELECTION);
   }
 
@@ -22,5 +22,3 @@ class InputView {
     return await Console.readLineAsync(PROMPT_MESSAGES.INPUT.ADDITIONAL_PURCHASE);
   }
 }
-
-export default InputView;
