@@ -19,6 +19,7 @@ export default class ReceiptCalculator {
       .reduce((acc, record) => acc + record.itemTotal, 0);
 
       membershipDiscount = Math.floor(nonPromotionTotal * 0.3);
+      membershipDiscount = Math.min(membershipDiscount, 8000);
     }
 
     // 최종 결제 금액 계산
