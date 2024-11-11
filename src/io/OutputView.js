@@ -25,26 +25,26 @@ export default class OutputView {
   }
 
   printReceipt(purchaseRecords, totals) {
-    Console.print("============== W 편의점 ==============");
+    Console.print("\n==============W 편의점================");
     Console.print("상품명\t\t수량\t금액");
 
     purchaseRecords.forEach(record => {
       const formattedItemTotal = record.itemTotal.toLocaleString();
-      Console.print(`${record.name}\t\t${record.quantity}\t${formattedItemTotal}원`);
+      Console.print(`${record.name}\t\t${record.quantity}\t${formattedItemTotal}`);
     });
 
-    Console.print("============= 증 정 ===============");
+    Console.print("=============증\t정===============");
     purchaseRecords.forEach(record => {
       if (record.freeItemCount > 0) {
-        Console.print(`${record.name}\t\t${record.freeItemCount}개`);
+        Console.print(`${record.name}\t\t${record.freeItemCount}`);
       }
     });
 
     Console.print("====================================");
-    Console.print(`총구매액\t\t${totals.totalQuantity}\t${totals.totalCost.toLocaleString()}원`);
-    Console.print(`행사할인\t\t\t-${totals.totalPromotionDiscount.toLocaleString()}원`);
-    Console.print(`멤버십할인\t\t\t-${totals.membershipDiscount.toLocaleString()}원`);
-    Console.print(`내실돈\t\t\t\t${totals.finalCost.toLocaleString()}원`);
+    Console.print(`총구매액\t\t${totals.totalQuantity}\t${totals.totalCost.toLocaleString()}`);
+    Console.print(`행사할인\t\t\t-${totals.totalPromotionDiscount.toLocaleString()}`);
+    Console.print(`멤버십할인\t\t\t-${totals.membershipDiscount.toLocaleString()}`);
+    Console.print(`내실돈\t\t\t\t${totals.finalCost.toLocaleString()}`);
   }
 
 
